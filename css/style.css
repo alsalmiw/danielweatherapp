@@ -1,0 +1,7 @@
+body{
+    background-image: url(“https://source.unsplash.com/1620x900/?landscape”);
+    background-repeat: none;
+    object-fit: cover;
+    background-size: 100%;
+    
+}
