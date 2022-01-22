@@ -51,6 +51,10 @@ body{
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 20px;
   }
+  .errorBorder{
+    border: 3px solid red;
+   
+  }
   
   .searchTerm:focus{
     color: white;
@@ -90,7 +94,7 @@ font-size: 30px;
   .today-container{
     width: 60vw;
     height: 50vh;
-    background-color: rgba(0, 0 ,0, 0.8);
+    background-color: rgba(0, 0 ,0, 0.9);
     border-radius: 60px;
     color: white;
     display: flex;
@@ -184,7 +188,7 @@ cursor:pointer;
   width: 19%;
   height: 99%;
   padding-top: 10px;
-  background-color: rgba(0, 0 ,0, 0.8);
+  background-color: rgba(0, 0 ,0, 0.9);
     border-radius: 60px;
     color: white;
     display: flex;
@@ -198,13 +202,29 @@ cursor:pointer;
   display: flex;
   justify-content: space-between;
 }
+.temp-only{
+  
+  display: flex;
+  justify-content: center;
+}
+
+.temp-only p{
+  font-size: 35px;
+  font-weight: 600;
+
+}
+
 .days-card h3{
   font-weight: 200;
 }
-.days-card p{
+.temp-high-low p{
   font-size: 25px;
   font-weight: 200;
 }
+/* .days-card p{
+  font-size: 25px;
+  font-weight: 200;
+} */
 /* FAVORITES CARDs */
 .favorites-card{
   width: 90%;

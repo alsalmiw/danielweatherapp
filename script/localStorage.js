@@ -1,22 +1,9 @@
-// let personData = {
-//     name: 'Walaa',
-//     email: 'alsalmiw@gmail.com'
-// }
-//console.log(personData);
-//localStorage.setItem('peopleData', JSON.stringify(personData))
-// localStorage.clear('peopleData')
-
-// let personDataInfo = JSON.parse(localStorage.getItem('peopleData'));
-
-// export {personDataInfo};
-
 let favorites=[];
 
 function saveToLocalStorage(cityName)
 {
     favorites.push(cityName);
     amendLocalStorage();
-    
 }
 
 function removeFromLocalStorage(cityName){
@@ -30,12 +17,8 @@ function amendLocalStorage(){
 }
 
 function getLocalStorage(){
-
     favorites = JSON.parse(localStorage.getItem('Favorite Cities'));
-    //console.log(localStorageData);
     return favorites;
 }
-
-// saveToLocalStorage();
 
 export {saveToLocalStorage, getLocalStorage, removeFromLocalStorage}

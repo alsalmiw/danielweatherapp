@@ -1,6 +1,6 @@
 import {prod, dev} from './environment.js';
 
-let city, temperature, clearity, humidity, wind, precipitation, errorCode, longitude, latitude, todayIcon; 
+let city, temperature, clearity, humidity, wind, errorCode=false, longitude, latitude, todayIcon, feelsLike; 
 let daysData, hourlyData, todaysData;
 let apiKey;
 if(prod.isLive){
@@ -10,62 +10,62 @@ else{
     apiKey=dev.apiKey;
 }
 
-
+// FETCH FOR DAILY AND HOURLY INFORMATION
 function fetchLonLat(lat, lon){
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`)
     .then(response => response.json())
-    .then(data => getDataLonLat(data));
+    .then(data => getDataLonLat(data))
+    .catch(error => console.log(error));
 }
 
+// FETCH TO ENTER LON AND LAT FROM GEOLOCATION
 function fetchLonLatNowData(lat, lon){
-    fetch (`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
+    fetch (`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`)
     .then(response => response.json())
     .then(data => getDataCity(data))
-    
 }
 
+// FETCH TO SEARCH BY CITY NAME : SEARCH BAR AND FAVORITES
 function fetchCityNowData(cityName){
-    fetch (`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`)
+    fetch (`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`)
     .then(response => response.json())
-    .then(data => getDataCity(data));
+    .then(data => getDataCity(data))
+    .catch(error => console.log(error))
 }
 
+// FUNCTIONS TO GET SPECIFIC DATA TO EXPORT TO APP.JS
 function getDataCity(data){
-    console.log(data)
-    
-    city = data.name;
-    temperature = Math.floor(data.main.temp);
-    let clear = data.weather[0].description;
-    clearity = clear[0].toUpperCase()+ clear.substring(1);
-    todayIcon=data.weather[0].icon;
-    humidity = Math.floor(data.main.humidity);
-    wind=Math.floor(data.wind.speed);
-   longitude = data.coord.lon;
-   latitude=data.coord.lat;
-   errorCode = data.cod;
-
-    todaysData ={
+    if (data.cod >= 400){
+        errorCode=true;
+        return;
+    }
+    else{
+        errorCode=false;
+        city = data.name;
+        temperature = Math.floor(data.main.temp);
+        let clear = data.weather[0].description;
+        clearity = clear[0].toUpperCase()+ clear.substring(1);
+        todayIcon=data.weather[0].icon;
+        humidity = Math.floor(data.main.humidity);
+        wind=Math.floor(data.wind.speed);
+        longitude = data.coord.lon;
+        latitude=data.coord.lat;
+        feelsLike = Math.floor(data.main.feels_like);
+   
+        todaysData ={
             city: city,
             temperature: temperature,
             clearity: clearity,
             humidity: humidity,
             wind: wind,
             todayIcon: todayIcon,
-            precipitation: precipitation
+            feelsLike: feelsLike
         }
-
-    console.log('longitude: '+longitude);
-    console.log('latitude: '+latitude);
-    console.log('error code: '+ errorCode);
-    //console.log(todaysData);
     fetchLonLat(latitude, longitude);
-
+    }
 }
 
 function getDataLonLat(data){
-    precipitation=data.minutely[30].precipitation;
-    console.log(precipitation);
-
     let day = data.daily;
     let date, days=[], highTemp, lowTemp, daysIcons=[], icons; 
     let daysHighTemp=[], daysLowTemp=[];
@@ -75,7 +75,6 @@ function getDataLonLat(data){
         daysLowTemp: daysLowTemp,
         daysIcons: daysIcons
     }
-   
 
     let hourly=data.hourly, hour, hours=[], temp, hoursTemps=[], hoursIcons=[], hrIcon;
     hourlyData={
@@ -104,13 +103,6 @@ function getDataLonLat(data){
          hrIcon=hourly[i].weather[0].icon;
          hoursIcons.push(hrIcon);
     }
-
-    //console.log("information for the next five days");
-    //console.log(daysData);
-    //console.log('information for the next five hours');
-    //console.log(hourlyData);
 }
 
-
-
-export {fetchLonLat, fetchCityNowData, fetchLonLatNowData, todaysData, daysData, hourlyData}
+export {fetchCityNowData,fetchLonLatNowData, todaysData, daysData, hourlyData, errorCode}
