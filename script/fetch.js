@@ -1,23 +1,31 @@
+import {prod, dev} from './environment.js';
+
 let city, temperature, clearity, humidity, wind, precipitation, errorCode, longitude, latitude, todayIcon; 
 let daysData, hourlyData, todaysData;
-
+let apiKey;
+if(prod.isLive){
+    apiKey=prod.apiKey;
+}
+else{
+    apiKey=dev.apiKey;
+}
 
 
 function fetchLonLat(lat, lon){
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=15adc6353eb69144e59e8cdfa7ee8626`)
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
     .then(response => response.json())
     .then(data => getDataLonLat(data));
 }
 
 function fetchLonLatNowData(lat, lon){
-    fetch (`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=15adc6353eb69144e59e8cdfa7ee8626`)
+    fetch (`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
     .then(response => response.json())
     .then(data => getDataCity(data))
+    
 }
 
-
 function fetchCityNowData(cityName){
-    fetch (`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=15adc6353eb69144e59e8cdfa7ee8626`)
+    fetch (`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`)
     .then(response => response.json())
     .then(data => getDataCity(data));
 }
@@ -27,7 +35,8 @@ function getDataCity(data){
     
     city = data.name;
     temperature = Math.floor(data.main.temp);
-    clearity = data.weather[0].description;
+    let clear = data.weather[0].description;
+    clearity = clear[0].toUpperCase()+ clear.substring(1);
     todayIcon=data.weather[0].icon;
     humidity = Math.floor(data.main.humidity);
     wind=Math.floor(data.wind.speed);
@@ -41,14 +50,14 @@ function getDataCity(data){
             clearity: clearity,
             humidity: humidity,
             wind: wind,
-            todayIcon: todayIcon
+            todayIcon: todayIcon,
+            precipitation: precipitation
         }
 
-    console.log('Information For Today');
-    console.log(longitude);
-    console.log(latitude);
-    console.log(errorCode);
-    console.log(todaysData);
+    console.log('longitude: '+longitude);
+    console.log('latitude: '+latitude);
+    console.log('error code: '+ errorCode);
+    //console.log(todaysData);
     fetchLonLat(latitude, longitude);
 
 }
@@ -96,10 +105,10 @@ function getDataLonLat(data){
          hoursIcons.push(hrIcon);
     }
 
-    console.log("information for the next five days");
-    console.log(daysData);
-    console.log('information for the next five hours');
-    console.log(hourlyData);
+    //console.log("information for the next five days");
+    //console.log(daysData);
+    //console.log('information for the next five hours');
+    //console.log(hourlyData);
 }
 
 

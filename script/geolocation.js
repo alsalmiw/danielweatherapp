@@ -47,7 +47,10 @@ let options = {
     maximumAge: 0
 };
 //Navigator
-//navigator.geolocation.getCurrentPosition(success,error,options);
+function getLocation(){
+    navigator.geolocation.getCurrentPosition(success,error,options);
+}
+//
 
 // let personData = {
 //     name:'Jateen',
@@ -59,4 +62,4 @@ let options = {
 let personData = JSON.parse(localStorage.getItem('peopleData'));
 //console.log(personData);
 
-export {geolocationError, geoLon, geoLat}
+export {geolocationError, geoLon, geoLat, getLocation}

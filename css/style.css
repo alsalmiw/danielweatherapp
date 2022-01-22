@@ -4,6 +4,7 @@ body{
     object-fit: cover;
     background-size: 100%;  
     max-height: 100vh;
+    color: white !important;
 }
 
 .app-container{
@@ -11,28 +12,35 @@ body{
     height: 95vh;
 }
 
+.hide{
+  display: hide;
+}
 
 /* SEARCH BAR */
 
 .header-container{
-    margin: 20px;
+    /* margin: 20px; */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .logo{
-    width: 25%;
+    width: 10%;
     display: flex;
     justify-content: start;
 }
+
+.logo img{
+  height: 150px;
+}
 .search {
-    width: 50%;
+    width: 70%;
     display: flex;
     justify-content: center;
   }
   
   .searchTerm {
-    width: 90%;
+    width: 70%;
     border: 3px solid black;
     background-color: black;
     border-right: none;
@@ -59,10 +67,9 @@ body{
     font-size: 25px;
   }
   .favorites-section{
-    width: 25%;
+    width: 10%;
     display: flex;
     justify-content: end;
-    margin-right: 10%;
     align-items: center;
   }
   .fa-bars{
@@ -70,4 +77,239 @@ body{
       font-size: 40px;
   }
 
+  .offcanvas{
+    background-color: rgba(0, 0, 0, 0.8)!important;
+  }
+
+  .fa-times{
+color: rgb(255, 255, 255);
+font-size: 30px;
+  }
+
   /* TODAYS WEATHER */
+  .today-container{
+    width: 60vw;
+    height: 50vh;
+    background-color: rgba(0, 0 ,0, 0.8);
+    border-radius: 60px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .weather-icon{
+    width: 40%;
+  }
+  .weather-info{
+    width: 40%;
+    padding: 70px;
+  }
+
+  .hourly-option{
+    width: 20%;
+  }
+  .fa-heart{
+    color: white;
+    font-size: 35px;
+  }
+ .add-favorites{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+ .add-favorites p{
+   font: 1.5em sans-serif;
+   font-weight: 300;
+   padding: 5px 0 0 10px;
+   margin: 0;
+ }
+ .today-icon{
+   display: flex ;
+   justify-content: center;
+  
+ }
+
+ .today-icon img{
+   height: 250px;
+   padding: 0;
+ }
+
+ .weather-info h1{
+   font-weight: 500;
+   font-size: 3em;
+   letter-spacing: 4px;
+}
+
+ .weather-info h3{
+   font-weight: 300;
+   font-size: 2.1em;
+ }
+ .weather-info p{
+   font-weight: 200;
+   font-size: 1.5em;
+   margin: .2em;
+ }
+
+ .hourly-option{
+   height: 80%;
+   display: flex;
+   justify-content: center;
+ }
+
+ .favoritesChkBox  input[type='checkbox'] {
+  display:none;
+}
+
+.favoritesChkBox   input[type='checkbox']+ label:before {
+  font-family: 'Font Awesome 5 Free';
+  content: "\f004";
+font-size:2.1rem;
+cursor:pointer;
+
+}
+
+.favoritesChkBox  input[type='checkbox']:checked + label:before {
+   font-weight:600;
+
+}
+ /* DAYS CARDS */
+.days-container{
+  width: 60vw;
+  height: 30vh;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+.days-card{
+  width: 19%;
+  height: 99%;
+  padding-top: 10px;
+  background-color: rgba(0, 0 ,0, 0.8);
+    border-radius: 60px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.temp-high-low{
+  padding-top: 10px;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+.days-card h3{
+  font-weight: 200;
+}
+.days-card p{
+  font-size: 25px;
+  font-weight: 200;
+}
+/* FAVORITES CARDs */
+.favorites-card{
+  width: 90%;
+  height: 10%;
+  margin:3%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 30px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.favorites-card h4{
+  margin: 0;
+  color: black;
+}
+.fa-times-circle{
+  font-size: 30px;
+  padding: 0 15px 0 0;
+  color: black;
+}
+
+ /* ------------ TOGGLE --------------- */
+
+ .toggle {
+  --width: 110px;
+  --height: calc(var(--width) / 2.5);
+  position: relative;
+  display: inline-block;
+  width: var(--width);
+  height: var(--height);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  border-radius: var(--height);
+  cursor: pointer;
+}
+
+.toggle input {
+  display: none;
+}
+
+.toggle .slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--height);
+  background-color: rgb(56, 56, 56);
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle .slider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--height));
+  height: calc(var(--height));
+  border-radius: calc(var(--height) / 2);
+  background-color: #fff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle input:checked+.slider {
+  background-color: #FFD800;
+}
+
+.toggle input:checked+.slider::before {
+  transform: translateX(calc(var(--width) - var(--height)));
+}
+
+.toggle .labels {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  font-family: sans-serif;
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle .labels::after {
+  content: attr(data-off);
+  position: absolute;
+  right: 10px;
+  color: white;
+  opacity: 1;
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle .labels::before {
+  content: attr(data-on);
+  position: absolute;
+  left: 5px;
+  color: black;
+  opacity: 0;
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle input:checked~.labels::after {
+  opacity: 0;
+}
+
+.toggle input:checked~.labels::before {
+  opacity: 1;
+}
