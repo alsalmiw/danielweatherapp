@@ -76,6 +76,8 @@ function searchFromFavorites(){
 
 function searchCityUserInput(){
     findCity(searchCityInput.value);
+    hourlyDailySwitch(false);
+    hourlyDailyToggle.checked=false;
     
     if(favoriteCities.includes(searchCityInput.value) || errorCode==true){
         checkUncheckHeart(true);

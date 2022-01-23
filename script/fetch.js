@@ -27,7 +27,7 @@ function fetchLonLatNowData(lat, lon){
 
 // FETCH TO SEARCH BY CITY NAME : SEARCH BAR AND FAVORITES
 function fetchCityNowData(cityName){
-    fetch (`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`)
+    fetch (`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`)
     .then(response => response.json())
     .then(data => getDataCity(data))
     .catch(error => console.log(error))
@@ -75,8 +75,8 @@ function getDataLonLat(data){
         daysLowTemp: daysLowTemp,
         daysIcons: daysIcons
     }
-
     let hourly=data.hourly, hour, hours=[], temp, hoursTemps=[], hoursIcons=[], hrIcon;
+    
     hourlyData={
         hours: hours,
         hoursTemps: hoursTemps,
@@ -96,7 +96,12 @@ function getDataLonLat(data){
          daysIcons.push(icons);
 
         // NEXT FIVE HOURS
-         hour = new Date(hourly[i].dt*1000).toLocaleTimeString('default', {hour: '2-digit', hour12: true}).replaceAll(' ', '').replace(/\b0+/g, '');
+        var d = new Date(hourly[i].dt*1000);
+        var utc_offset = d.getTimezoneOffset();
+        d.setMinutes(d.getMinutes()+ utc_offset);
+        var cityOffSet = data.timezone_offset/60;
+        d.setMinutes(d.getMinutes()+ cityOffSet);
+        hour = d.toLocaleTimeString ('en-US', {hour: '2-digit', hour12: true}).replaceAll(' ', '').replace(/\b0+/g, '');
          hours.push(hour);
          temp = Math.floor(hourly[i].temp);
          hoursTemps.push(temp)
