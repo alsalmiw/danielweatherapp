@@ -88,7 +88,7 @@ function createHourlyCard(nextHours, nextTemp, nextIcon){
 
 // CREATE CARD FOR FAVORITE CITIES
 function createFavoritesCards(favoriteCity){
-    let h4=createElementText('h4', favoriteCity);
+    let h4=createElementClassText('h4','favorite-city', favoriteCity);
     let removeIcon=createElementClassID('i', 'far fa-times-circle removeFavorite', `${favoriteCity}Icon`);
     let favoriteCard=createElementClassID('div', 'favorites-card', favoriteCity);
     favoriteCard.appendChild(removeIcon);

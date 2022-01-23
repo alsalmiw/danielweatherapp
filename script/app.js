@@ -41,20 +41,6 @@ function getFavorites(){
 
 // RUN THE FETCHES FOR INFO ON WEATHER
 function getFetchedData(){
-     setTimeout(() => {
-        console.log(todaysData);
-        console.log(daysData);
-        console.log(hourlyData);
-        
-        addTodayWeather();
-        DayCards();
-        document.body.style.backgroundImage= `url('https://source.unsplash.com/1620x900/?${todaysData.city}')`;
-        }, 5000);
-}
-
-function findCity(cityName){
-    document.body.style.backgroundImage= `url('https://source.unsplash.com/1620x900/?${cityName}')`;
-    fetchCityNowData(cityName);
     setTimeout(() => {
         if (errorCode==true){
             searchCityInput.classList.add('errorBorder');
@@ -70,25 +56,28 @@ function findCity(cityName){
             console.log(hourlyData);
             addTodayWeather();
             DayCards();
+            document.body.style.backgroundImage= `url('https://source.unsplash.com/1620x900/?${todaysData.city}')`;
                 }
-            }, 2000);
+            }, 2000);        
 }
 
 // GET CITY WEATHER INFORMATION THROUGH: SEARCH BAR OR CLICKING ON FAVORITE CITIES
 function searchFromFavorites(){
-    let favoritesCard=document.getElementsByClassName('favorites-card');
-
-    Object.entries(favoritesCard).map(item => {
+    let favoriteCities=document.getElementsByClassName('favorite-city');
+    
+    Object.entries(favoriteCities).map(item => {
      item[1].addEventListener('click', function(){
-        findCity(item[1].id)
+        findCity(item[1].textContent.toLowerCase())
         checkUncheckHeart(true);
+        console.log(item[1].textContent.toLowerCase());
      })
     });
 }
 
 function searchCityUserInput(){
     findCity(searchCityInput.value);
-    if(favoriteCities.includes(searchCityInput.value)){
+    
+    if(favoriteCities.includes(searchCityInput.value) || errorCode!=true){
         checkUncheckHeart(true);
     }
     else{
@@ -96,12 +85,16 @@ function searchCityUserInput(){
     }
 }
 
+function findCity(cityName){
+    fetchCityNowData(cityName);
+    getFetchedData();
+}
+
 // HOURLY TO DAILY TOGGLE CONTROLLER
 function hourlyDailySwitch(isHourly){
     isHourly?  removeDaysCards(): removeDaysCards();
     isHourly? addHourlyCards():addDayCards();
 }
-
 
 //FAVORITES FUNCTIONS AND ADDING & DELETING FAVORITE CARDS
 function addRemoveToFavorite(isTrue){
@@ -128,7 +121,9 @@ function deleteFavoriteCard(){
      item[1].addEventListener('click', function(){
         this.parentNode.remove();
         removeFromLocalStorage(this.parentNode.id.toLowerCase());
-        checkUncheckHeart(false);
+        if(todaysData.city.toLowerCase() == this.parentNode.id.toLowerCase()){
+             checkUncheckHeart(false);
+        }
      })
     });
 }
