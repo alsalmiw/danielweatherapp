@@ -77,7 +77,7 @@ function searchFromFavorites(){
 function searchCityUserInput(){
     findCity(searchCityInput.value);
     
-    if(favoriteCities.includes(searchCityInput.value) || errorCode!=true){
+    if(favoriteCities.includes(searchCityInput.value) || errorCode==true){
         checkUncheckHeart(true);
     }
     else{

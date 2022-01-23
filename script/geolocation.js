@@ -12,7 +12,6 @@ function  error(err){
     console.warn(err.message);
     fetchCityNowData('London');
     return geolocationError = err.message;
-    
 }
 
 let options = {
@@ -24,6 +23,7 @@ let options = {
 //Navigator
 function getLocation(){
     navigator.geolocation.getCurrentPosition(success,error,options);
+   console.log(navigator); 
 }
 
 export {getLocation}
