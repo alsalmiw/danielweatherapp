@@ -18,7 +18,7 @@ deleteFavoriteCard();
 
 // CHECK GEOLOCATION IF FAVORITES ARE EMPTY (DEFAULT CITY FOR ERROR IS LONDON)
 function firstTimeIntoSite(){
-    if (favoriteCities.length ==0){
+    if (favoriteCities=[]){
         getLocation();
         getFetchedData();
     }

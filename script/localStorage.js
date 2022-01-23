@@ -17,7 +17,8 @@ function amendLocalStorage(){
 }
 
 function getLocalStorage(){
-    favorites = JSON.parse(localStorage.getItem('Favorite Cities'));
+    const localStorageItem = localStorage.getItem('Favorite Cities');
+    localStorageItem != null ? favorites = JSON.parse(localStorageItem) : favorites = [];
     return favorites;
 }
 

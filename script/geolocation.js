@@ -10,8 +10,9 @@ function success(position){
 let geolocationError
 function  error(err){
     console.warn(err.message);
-    fetchCityNowData('London');
-    return geolocationError = err.message;
+   
+    return  fetchCityNowData('London');
+    // geolocationError = err.message;
 }
 
 let options = {
