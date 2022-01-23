@@ -57,7 +57,7 @@ function createDailyCard(daysNames, daysIcons, daysHigh, daysLow, i){
    tempDiv.appendChild(pHigh);
    tempDiv.appendChild(pLow);
 
-    let iconSrc = `http://openweathermap.org/img/wn/${daysIcons}@2x.png`;
+    let iconSrc = `https://openweathermap.org/img/wn/${daysIcons}@2x.png`;
    let icon = createElementClassSrc('img','dayIcon', iconSrc);
    let h3 =createElementTextID('h3', `dayName${i}`, daysNames)
 
@@ -74,7 +74,7 @@ function createHourlyCard(nextHours, nextTemp, nextIcon){
     let tempP=createElementText('p', `${nextTemp}°C`);
     let tempDiv = createElementClass('div', 'temp-only');
     tempDiv.appendChild(tempP);
-    let iconSrc = `http://openweathermap.org/img/wn/${nextIcon}@2x.png`;
+    let iconSrc = `https://openweathermap.org/img/wn/${nextIcon}@2x.png`;
    let icon = createElementClassSrc('img','dayIcon', iconSrc);
    let h3 =createElementText('h3', nextHours)
 

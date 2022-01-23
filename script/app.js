@@ -144,7 +144,7 @@ function addTodayWeather(){
        element.textContent=todaysData[item]
       
        if (item == 'todayIcon'){
-           element.src=`http://openweathermap.org/img/wn/${todaysData[item]}@2x.png`;
+           element.src=`https://openweathermap.org/img/wn/${todaysData[item]}@2x.png`;
        }
    })
 }
